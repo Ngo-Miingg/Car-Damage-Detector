@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết Quả Phát Hiện</title>
+    <style>
+        /* Reset mặc định */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Baloo 2", sans-serif;
+            background: #f9f9f9; /* Màu nền sáng */
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #4CAF50; /* Màu xanh lá hiện đại */
+        }
+
+        .result-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        img {
+            border-radius: 15px;
+            margin: 20px 0;
+            max-width: 100%;
+            height: auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px 0;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        li strong {
+            color: #4CAF50; /* Màu xanh lá cho nhấn mạnh */
+        }
+
+        .back-link {
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: #4CAF50;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background-color: #45a049; /* Màu xanh đậm hơn khi hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Kết Quả Hư Hại</h1>
+    <div>
+        <img src="{{ image_url }}" alt="Result Image">
+    </div>
+    <div class="result-container">
+        {% if output['boxes'] %}
+            <ul>
+                {% for box, cls, conf in zip(output['boxes'], output['classes'], output['confidences']) %}
+                    <li>
+                        <strong>Phân loại:</strong> {{ cls }} | 
+                        <strong>Độ chính xác dự đoán:</strong> {{ conf }}% | 
+                        <strong>Khung giới hạn:</strong> {{ box }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>{{ message }}</p>
+        {% endif %}
+    </div>
+    </div>
+    <a href="/" class="back-link">Kiểm Tra Xe Khác</a>
+</body>
+</html>
